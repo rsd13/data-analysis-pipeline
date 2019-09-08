@@ -65,8 +65,5 @@ def get_obese():
             pass
     
 
-
-    print(result)
     return result
 
-get_obese()
