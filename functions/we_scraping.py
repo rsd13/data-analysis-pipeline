@@ -1,7 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
 
-
+#que se pide mas hamburguesa o pizza
+#comparativa de estado eentree hamburguesa o piiza
+#comparativa entre estados
 def get_state():
     """consigue el nombre completo del estado.
     Ej: AL -> alabama"""
@@ -37,7 +39,6 @@ def get_population():
     for row in tr:
         try:
             td = row.find_all("td")
-           
             result[td[2].text.strip()] = int(td[3].text.strip().replace(",",""))
         except:
             pass
