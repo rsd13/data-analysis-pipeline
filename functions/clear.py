@@ -77,8 +77,6 @@ def get_categorias(data):
     string = " "
     result = string.join(data["categories"].apply(lambda col: col))
     
-    
-
     nlp = spacy.load('en_core_web_sm')
     doc = nlp(result)
     #lo tokenizo

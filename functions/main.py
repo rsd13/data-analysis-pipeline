@@ -7,6 +7,7 @@ def parse():
 	grupo = parser.add_mutually_exclusive_group()      # grupo mutuamente excluyente (solo una operacion)
 
 	grupo.add_argument('-c', '--clear', help='Limpia el dataset y lo deja prepardo para el analisis', action='store_true')           # action guarda el argumento
+    grupo.add_argument('-a', '--clear', help='Limpia el dataset y lo deja prepardo para el analisis', action='store_true')
 	
 	#parser.add_argument('string1', help='Primer numero de la operacion.', type=str)
 	return parser.parse_args()
