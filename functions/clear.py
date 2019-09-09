@@ -13,6 +13,12 @@ import os
 #https://en.wikipedia.org/wiki/Obesity_in_the_United_States
 
 
+def description(pdf):
+    """descripcion de lo que hace en eel terminal y en el pdf generado"""
+    print("-----------------LIMPIANDO----------------------")
+    print("Limpiando el dataset para su futuro analisis.\n")
+    pdf.input_subtitle("Limpieza de datos")
+
 def open_data():
     name = "Datafiniti_Pizza_Restaurants_and_the_Pizza_They_Sell_May19.csv"
 
@@ -103,6 +109,7 @@ def get_categorias(data):
 
 
 def data_clear(pdf):
+    description(pdf)
     data = open_data()
     pdf.input_line("    1. Abriendo dataset 'sucio'.")
     

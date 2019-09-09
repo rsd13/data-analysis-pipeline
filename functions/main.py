@@ -10,7 +10,7 @@ def parse():
     grupo.add_argument('-c', '--clear', help='Limpia el dataset y lo deja prepardo para el analisis',action='store_true')           # action guarda el argumento
     grupo.add_argument('-ac',action='append', dest='cities',default=[],help="Añade las ciudades que se quiere comparar. Ej: -ac 'New York' -ac Phoenix ...")
     grupo.add_argument('-as',action='append', dest='states',default=[],help="Añade los estados que se quiere comparar. Ej: -as California -as 'New York' ...")
-
+    grupo.add_argument('-at',action='store', dest='type',default=[],help="Indica que tipo de restaurante se pide mas en una ciudad (pizza o hamburguesa)")
 
     #parser.add_argument('string1', help='Primer numero de la operacion.',type=str)
     return parser.parse_args()
@@ -25,16 +25,10 @@ def main():
     pdf.add_page()
     pdf.input_title("Analisis de comida pedida en EUUU")
     if args.clear:
-        print("-----------------LIMPIANDO----------------------")
-        print("Limpiando el dataset para su futuro analisis.\n")
-        pdf.input_subtitle("Limpieza de datos")
         data_clear(pdf)
     elif args.cities:
         print("-----------------Analizando----------------------")
-        print("Comparación de restaurantes pedidos por ciudades.\n")
- 
         pdf.input_subtitle("Comparación de restaurantes consumidos por ciudades.")
-        #transfomo las ciudades de la lista en un string
         result = ", "
         a = (lambda lst: lst)
         cities = result.join(a(args.cities))
@@ -44,8 +38,6 @@ def main():
 
     elif args.states:
         print("-----------------Analizando----------------------")
-        print("Comparación de restaurantes pedidos por estados.\n")
- 
         pdf.input_subtitle("Comparación de restaurantes consumidos por estados.")
         #transfomo las ciudades de la lista en un string
         result = ", "

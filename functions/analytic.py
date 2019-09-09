@@ -16,6 +16,13 @@ def open_data():
     return data
 
 
+def description(pdf):
+    """descripcion de lo que hace en eel terminal y en el pdf generado"""
+    print("-----------------LIMPIANDO----------------------")
+    print("Limpiando el dataset para su futuro analisis.\n")
+    pdf.input_subtitle("Limpieza de datos")
+
+
 def compare_city(cities,pdf):
     """compara las ciudades por comida pedida"""
     data = open_data()
@@ -34,7 +41,6 @@ def compare_state(states,pdf):
  
     for state in states:
         plt.hist(data[(data.longNameProvince == state )].longNameProvince, alpha=1, label=state)
-    
 
     url_image = url+'/../imgs/compare_states.png'
     plt.savefig(url_image)
