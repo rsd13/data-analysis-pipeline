@@ -14,13 +14,18 @@ def open_data():
     return data
 
 
-def compare_city(data,city1="New York",city2="Phoenix"):
+def compare_city(cities):
+    data = open_data()
+    print(cities)
     """ da el estado que mide mas comida rapida"""
-    x = data[ (data.city == city1 )]
-    y = data[ (data.city == city2 )]
+    """x = data[ (data.city == city1 )]
+    y = data[ (data.city == city2 )]"""
 
-    plt.hist(x.city, alpha=1, label=city1)
-    plt.hist(y.city, alpha=1, label=city2)
+    for city in cities:
+        plt.hist(data[ (data.city == city )].city, alpha=1, label=city)
+
+    """ plt.hist(data[ (data.city == city1 )].city, alpha=1, label=city1)
+    plt.hist(y.city, alpha=1, label=city2)"""
     plt.legend(loc='upper right')
     plt.show()
 
@@ -97,14 +102,3 @@ def hypothesis(data):
     
 
 
-
-
-def main():
-    data = open_data()
-    
-    #info_state_percentObese(data)
-    #hypothesis(data)
-    #compare_city(data)
-    compare_state(data)
-
-main()

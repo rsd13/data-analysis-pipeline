@@ -1,6 +1,6 @@
 import pandas as pd
 from trya import get_start,get_page
-from we_scraping import  get_state,get_population,get_obese
+from web_scraping import  get_state,get_population,get_obese
 import spacy
 import nltk
 
