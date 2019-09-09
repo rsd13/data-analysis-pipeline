@@ -17,14 +17,8 @@ def open_data():
 
 
 def clean_null(data):
-    print(data.isnull().sum())
-    print(data.columns)
-    print("Se puede ver que el dataset esta muy linpio salvo dos columnas que las voy a elimnar. Ademas de poner en U las 4 celdas de postalCode. \
-    Ademas borro información que no me intereesa")
-
+    
     data.drop(columns=["menuPageURL","menus.description","latitude","keys","longitude"],inplace = True)
-
-    print(data.head())
     data.update(data[["postalCode"]].fillna("UNKNOWN"))
 
        
@@ -90,20 +84,22 @@ def get_categorias(data):
     #lo transformo en lista por que nltk trabaja con listas
 
     frecuencias = nltk.FreqDist(corpus)
-    print(frecuencias.most_common(50))
+    #print(frecuencias.most_common(50))
 
-    print("veo que las categorias unicas son italian, american. Por lo tanto voy \
-        hacer el analisis sobre esas dos, además si en la frasee hay pizza lo etiquetaré \
-        como italian")
+    """veo que las categorias unicas son italian, american. Por lo tanto voy \
+    hacer el analisis sobre esas dos, además si en la frasee hay pizza lo etiquetaré \
+    como italian"""
 
 
     data["categories"] = data["categories"].apply(get_categories)
 
 
-def data_clear():
+def data_clear(pdf):
     data = open_data()
-    #limpiamos de null
+    pdf.input_line("    1. Abriendo dataset 'sucio'.")
+    
     clean_null(data)
+    pdf.input_line("    2. Proceso de limpiar las columnas 'sucias'.")
       
     """Este metodo funciona pero no lo he ejecutado debido al tiempo.
     lo que hace es ir a tripadisor con selenium y busca el nombre y el pais
@@ -114,17 +110,19 @@ def data_clear():
     #obtengo el nombre largo
     dic = get_state()
     data["longNameProvince"] = data["province"].apply(get_longName_state,dic=dic)
+    pdf.input_line("    3. Haciendo web scraping para añadir el nombre largo de un estado dando su codigo. Ej: Ny -> New York.")
     
     #obtengo la pobación
     dic = get_population()
     data["population"] = data["longNameProvince"].apply(get_poblation,dic=dic)
+    pdf.input_line("    4. Haciendo web scraping para añadir la población por estado.")
     #obtengo el indice de obesidad
     dic = get_obese()
     data["percentObese"] = data["longNameProvince"].apply(get_poblation,dic=dic)
-    
+    pdf.input_line("    5. Haciendo web scraping para añadir el indice de obesidad por estado.")
     #por último en categoría voy a ver que categorias se repiten mas
     get_categorias(data)
-
+    pdf.input_line("    6. Cambiando la descripción de los restaurantes para tener categoria. Ej: restaurant pizza -> pizza")
     save_data(data)
     
 

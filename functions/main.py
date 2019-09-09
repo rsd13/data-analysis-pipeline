@@ -1,6 +1,7 @@
 import argparse
 from clear import data_clear 
 from analytic import compare_city
+from pdf import PDF
 
 def parse():
     parser = argparse.ArgumentParser()                 # analizador de argumentos
@@ -22,19 +23,26 @@ def main():
     args=parse()
 
     # opciones
-    print(args)
+    pdf = PDF()
+    pdf.add_page()
+    pdf.input_title("Analisis de comida pedida en EUUU")
     if args.clear:
         print("-----------------LIMPIANDO----------------------")
         print("Limpiando el dataset para su futuro analisis.\n")
-
-        #data_clear()
+        pdf.input_subtitle("Limpieza de datos")
+        data_clear(pdf)
     elif args.collection:
+        pdf.input_subtitle("Comparación de restaurantes por ciudades.")
+        result = ", "
+        a = (lambda lst: lst)
+        cities = result.join(a(args.collection))
+        pdf.input_line("Ciudades comparadas: {}.".format(cities))
         compare_city(args.collection)
     else:
         print ('Error: se requiere uno o mas argumentos para realizar la accion. Pulsa -h para más información')
     
 
-   
+    pdf.output('analytic.pdf', 'F')
 
 
 
