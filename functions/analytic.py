@@ -2,49 +2,43 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+from fpdf import FPDF
+import os
 
-
+url = os.path.dirname(os.path.abspath(__file__))
 def open_data():
     name = "clean.csv"
-    
-    url = "../dataset/output/"
+   
+    url_relative = url +  "/../dataset/output/"
     
 
-    data = pd.read_csv(url + name)
+    data = pd.read_csv(url_relative + name)
     return data
 
 
-def compare_city(cities):
+def compare_city(cities,pdf):
+    """compara las ciudades por comida pedida"""
     data = open_data()
-    print(cities)
-    """ da el estado que mide mas comida rapida"""
-    """x = data[ (data.city == city1 )]
-    y = data[ (data.city == city2 )]"""
 
     for city in cities:
         plt.hist(data[ (data.city == city )].city, alpha=1, label=city)
-
-    """ plt.hist(data[ (data.city == city1 )].city, alpha=1, label=city1)
-    plt.hist(y.city, alpha=1, label=city2)"""
-    plt.legend(loc='upper right')
-    plt.show()
-
+    
+    url_image = url+'/../imgs/compare_cities.png'
+    plt.savefig(url_image)
+    pdf.image(url_image,w=175,h=140)
 
 
-def compare_state(data,state1="New York",state2="California"):
+def compare_state(states,pdf):
     """ da el estado que mide mas comida rapida"""
-    x = data[ (data.longNameProvince == state1 )]
-    y = data[ (data.longNameProvince == state2 )]
-
-    
-    plt.hist(x.longNameProvince, alpha=1, label=state1)
-    plt.hist(y.longNameProvince, alpha=1, label=state2)
-    plt.legend(loc='upper right')
-    plt.show()
+    data = open_data()
+ 
+    for state in states:
+        plt.hist(data[(data.longNameProvince == state )].longNameProvince, alpha=1, label=state)
     
 
-
-
+    url_image = url+'/../imgs/compare_states.png'
+    plt.savefig(url_image)
+    pdf.image(url_image,w=175,h=140)
     
 
 

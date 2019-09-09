@@ -1,6 +1,6 @@
 import argparse
 from clear import data_clear 
-from analytic import compare_city
+from analytic import compare_city,compare_state
 from pdf import PDF
 
 def parse():
@@ -8,12 +8,10 @@ def parse():
     #grupo que limpia 
     grupo = parser.add_mutually_exclusive_group()      # grupo mutuamente excluyente (solo una operacion)
     grupo.add_argument('-c', '--clear', help='Limpia el dataset y lo deja prepardo para el analisis',action='store_true')           # action guarda el argumento
-    grupo.add_argument('-ac',action='append', dest='collection',default=[],help='Add repeated values to a list')
+    grupo.add_argument('-ac',action='append', dest='cities',default=[],help="Añade las ciudades que se quiere comparar. Ej: -ac 'New York' -ac Phoenix ...")
+    grupo.add_argument('-as',action='append', dest='states',default=[],help="Añade los estados que se quiere comparar. Ej: -as California -as 'New York' ...")
 
 
-    
-    
-    print(parser)
     #parser.add_argument('string1', help='Primer numero de la operacion.',type=str)
     return parser.parse_args()
 
@@ -31,21 +29,37 @@ def main():
         print("Limpiando el dataset para su futuro analisis.\n")
         pdf.input_subtitle("Limpieza de datos")
         data_clear(pdf)
-    elif args.collection:
-        
+    elif args.cities:
+        print("-----------------Analizando----------------------")
+        print("Comparación de restaurantes pedidos por ciudades.\n")
+ 
         pdf.input_subtitle("Comparación de restaurantes consumidos por ciudades.")
         #transfomo las ciudades de la lista en un string
         result = ", "
         a = (lambda lst: lst)
-        cities = result.join(a(args.collection))
+        cities = result.join(a(args.cities))
         pdf.input_line("Ciudades comparadas: {}.".format(cities))
+        pdf.ln()
+        compare_city(args.cities,pdf)
 
-        compare_city(args.collection)
+    elif args.states:
+        print("-----------------Analizando----------------------")
+        print("Comparación de restaurantes pedidos por estados.\n")
+ 
+        pdf.input_subtitle("Comparación de restaurantes consumidos por estados.")
+        #transfomo las ciudades de la lista en un string
+        result = ", "
+        a = (lambda lst: lst)
+        cities = result.join(a(args.states))
+        pdf.input_line("Ciudades comparadas: {}.".format(cities))
+        pdf.ln()
+        compare_state(args.states,pdf)
+       
     else:
         print ('Error: se requiere uno o mas argumentos para realizar la accion. Pulsa -h para más información')
     
 
-    pdf.output('analytic.pdf', 'F')
+    pdf.output('analyti1c.pdf', 'F')
 
 
 

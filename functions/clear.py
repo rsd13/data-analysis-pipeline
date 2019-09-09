@@ -1,8 +1,12 @@
 import pandas as pd
-from trya import get_start,get_page
+from tripadvisor import get_start,get_page
 from web_scraping import  get_state,get_population,get_obese
 import spacy
 import nltk
+import os
+
+
+
 
 
 #https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population
@@ -11,7 +15,10 @@ import nltk
 
 def open_data():
     name = "Datafiniti_Pizza_Restaurants_and_the_Pizza_They_Sell_May19.csv"
-    url = "../dataset/input/"
+
+    url = os.path.dirname(os.path.abspath(__file__))
+    url += "/../dataset/input/"
+    
     data = pd.read_csv(url + name)
     return data
 
@@ -23,7 +30,8 @@ def clean_null(data):
 
        
 def save_data(data):
-    data.to_csv('../dataset/output/clean.csv')
+    url = os.path.dirname(os.path.abspath(__file__))
+    data.to_csv(url + '/../dataset/output/clean.csv')
 
 
 def put_start(data):
