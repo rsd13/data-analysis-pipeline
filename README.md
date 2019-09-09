@@ -23,4 +23,5 @@ Para iniciar el programa se hace a través de los siguientes argumentos:
 
 - **python3 main -c**: inicia el proceso de limpiado y de añadir información al dataset. Este genera un pdf con los pasos seguidos.
 - **python3 main -ac city1 -ac city2...**: realiza una comparación entre distintas ciudades para ver que ciudades piden mas comida. Genera un pdf con un gráfico de la compración.
-- **python3 main -as city1 -as city2...**: realiza una comparación entre distintos estados para ver que estados piden mas comida. Genera un pdf con un gráfico de la compración.
+- **python3 main -as state1 -as state2...**: realiza una comparación entre distintos estados para ver que estados piden mas comida. Genera un pdf con un gráfico de la compración.
+  - **python3 main -at city**: realiza una comparación entre los distintos tipos de restaurantes.

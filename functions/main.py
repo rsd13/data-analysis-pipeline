@@ -1,7 +1,10 @@
 import argparse
 from clear import data_clear 
-from analytic import compare_city,compare_state
+from analytic import compare_city,compare_state,compare_restaurant
 from pdf import PDF
+import os
+
+url = os.path.dirname(os.path.abspath(__file__))
 
 def parse():
     parser = argparse.ArgumentParser()                 # analizador de argumentos
@@ -22,36 +25,20 @@ def main():
 
     # opciones
     pdf = PDF()
-    pdf.add_page()
-    pdf.input_title("Analisis de comida pedida en EUUU")
+    pdf.input_title()
     if args.clear:
         data_clear(pdf)
     elif args.cities:
-        print("-----------------Analizando----------------------")
-        pdf.input_subtitle("Comparación de restaurantes consumidos por ciudades.")
-        result = ", "
-        a = (lambda lst: lst)
-        cities = result.join(a(args.cities))
-        pdf.input_line("Ciudades comparadas: {}.".format(cities))
-        pdf.ln()
         compare_city(args.cities,pdf)
-
     elif args.states:
-        print("-----------------Analizando----------------------")
-        pdf.input_subtitle("Comparación de restaurantes consumidos por estados.")
-        #transfomo las ciudades de la lista en un string
-        result = ", "
-        a = (lambda lst: lst)
-        cities = result.join(a(args.states))
-        pdf.input_line("Ciudades comparadas: {}.".format(cities))
-        pdf.ln()
         compare_state(args.states,pdf)
-       
+    elif args.type:
+        compare_restaurant(pdf,args.type)
     else:
         print ('Error: se requiere uno o mas argumentos para realizar la accion. Pulsa -h para más información')
     
-
-    pdf.output('analyti1c.pdf', 'F')
+    url_pdf = url + "/../pdf/"
+    pdf.output(url_pdf + "analytic.pdf", 'F')
 
 
 

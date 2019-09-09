@@ -10,8 +10,6 @@ def get_page(url):
         html = driver.page_source
     except:
         pass
-       
-
     return driver
     
 

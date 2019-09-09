@@ -1,8 +1,13 @@
 from fpdf import FPDF
 
 class PDF(FPDF):
+
+
     
-    def input_title(self,title):
+    
+    
+    def input_title(self,title="Analisis de comida pedida en EUUU"):
+        self.add_page()
         self.set_font('Arial', 'B', 16)
         self.cell(200, 10, title,align = 'C')
         self.ln()
@@ -16,9 +21,3 @@ class PDF(FPDF):
         self.ln()
         self.set_font('Arial', '', 10)
         self.cell(10, 10, line)
-# Instantiation of inherited class
-"""pdf = PDF()
-pdf.add_page()
-pdf.input_title("Analisis de comida pedida en EUUU")
-pdf.input_subtitle("Limpieza de datos")
-pdf.output('tuto2.pdf', 'F')"""
