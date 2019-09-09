@@ -14,7 +14,7 @@ class PDF(FPDF):
 
     def input_subtitle(self,title):
         self.set_font('Arial', 'B', 14)
-        self.cell(200, 10, "Limpieza de datos",align = 'L')
+        self.cell(200, 10, title,align = 'L')
 
     def input_line(self,line):
         self.ln()
