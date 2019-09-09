@@ -3,14 +3,19 @@ from clear import data_clear
 
 
 def parse():
-	parser = argparse.ArgumentParser()                 # analizador de argumentos
-	grupo = parser.add_mutually_exclusive_group()      # grupo mutuamente excluyente (solo una operacion)
+    parser = argparse.ArgumentParser()                 # analizador de argumentos
+   
+    grupo = parser.add_mutually_exclusive_group()      # grupo mutuamente excluyente (solo una operacion)
 
-	grupo.add_argument('-c', '--clear', help='Limpia el dataset y lo deja prepardo para el analisis', action='store_true')           # action guarda el argumento
-    grupo.add_argument('-a', '--clear', help='Limpia el dataset y lo deja prepardo para el analisis', action='store_true')
-	
-	#parser.add_argument('string1', help='Primer numero de la operacion.', type=str)
-	return parser.parse_args()
+
+    grupo.add_argument('-c', '--clear', help='Limpia el dataset y lo deja prepardo para el analisis',action='store_true')           # action guarda el argumento
+    grupo.add_argument('-a', '--analytic', help='Empieza el analisis')
+    grupo.add_argument('name1',nargs='?',help='Introduce un nombre o estado de EEUU')
+    grupo.add_argument('name2',nargs='?',help='Introduce un nombre o estado de EEUU')
+
+    #parser.add_argument('string1', help='Primer numero de la operacion.',type=str)
+    print(parser)
+    return parser.parse_args()
 
 
 def main(): 
@@ -23,7 +28,10 @@ def main():
         print("-----------------LIMPIANDO----------------------")
         print("Limpiando el dataset para su futuro analisis.\n")
 
-        data_clear()
+        #data_clear()
+    elif args.analytic:
+        print(args)
+        print("analizando......")
 
     else:
         print ('Error: se requiere un argumento para realizar la accion.')

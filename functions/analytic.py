@@ -7,7 +7,7 @@ import random
 def open_data():
     name = "clean.csv"
     
-    url = "./dataset/output/"
+    url = "../dataset/output/"
     
 
     data = pd.read_csv(url + name)
